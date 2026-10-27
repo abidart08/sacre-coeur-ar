@@ -5,7 +5,7 @@ Experiencia web de realidad aumentada basada en marcadores para una búsqueda de
 ## Funcionalidades
 
 - 3 marcadores AR diferentes.
-- Recorrido secuencial: inicio → Aula Magna → Capilla del Encuentro.
+- Recorrido secuencial: inicio → Aula Magna → banco del patio central exterior.
 - Elementos 3D distintos: brújula, llave y cofre.
 - Eventos `markerFound` / `markerLost`.
 - Bloqueo del orden de las pistas.
