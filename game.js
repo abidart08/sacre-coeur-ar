@@ -4,7 +4,7 @@
   const STORAGE_KEY = 'sacreCoeurTreasureStateV1';
   const steps = {
     1: { icon: '🧭', title: 'La brújula despertó', body: 'Primera pista superada. Ahora buscá el lugar donde la geometría se vuelve sagrada y las voces de la comunidad se reúnen: el Aula Magna.' },
-    2: { icon: '🗝️', title: 'Encontraste la llave', body: 'La llave señala el último destino. Buscá un espacio de contemplación donde el arte y la espiritualidad se encuentran: la Capilla del Encuentro.' },
+    2: { icon: '🗝️', title: 'Encontraste la llave', body: 'La llave señala el último destino. Salí al patio central exterior y buscá el banco donde se esconde el último símbolo.' },
     3: { icon: '✨', title: 'El sello final se abrió', body: 'Los tres símbolos están completos. El tesoro del Sacré Coeur acaba de revelarse.' }
   };
 
