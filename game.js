@@ -1,6 +1,8 @@
 (() => {
   'use strict';
 
+  if (window.SacreMarkers) window.SacreMarkers.applyPatternUrls();
+
   const STORAGE_KEY = 'sacreCoeurTreasureStateV1';
   const steps = {
     1: { icon: '🧭', title: 'La brújula despertó', body: 'Primera pista superada. Ahora buscá el lugar donde la geometría se vuelve sagrada y las voces de la comunidad se reúnen: el Aula Magna.' },
