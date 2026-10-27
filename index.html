@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./styles.css" />
   <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.8/aframe/build/aframe-ar.js"></script>
-  <script defer src="./game.js"></script>
+  <script defer src="./markers-data.js"></script>\n  <script defer src="./game.js"></script>
 </head>
 <body>
 <div id="app-ui" aria-live="polite">
@@ -70,7 +70,7 @@
 </div>
 
 <a-scene embedded vr-mode-ui="enabled: false" renderer="antialias: true; alpha: true;" arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono; patternRatio: 0.5; maxDetectionRate: 30;">
-<a-marker id="marker-1" type="pattern" url="./markers/marker-1.patt" emitevents="true" smooth="true" smooth-count="10" smooth-tolerance="0.01" smooth-threshold="5">
+<a-marker id="marker-1" type="pattern" emitevents="true" smooth="true" smooth-count="10" smooth-tolerance="0.01" smooth-threshold="5">
 <a-entity position="0 0.08 0" rotation="-90 0 0">
 <a-torus radius="0.43" radius-tubular="0.035" material="color: #38bdf8; metalness: 0.3; roughness: 0.35" animation="property: rotation; to: 0 0 360; dur: 7000; loop: true; easing: linear"></a-torus>
 <a-cone radius-bottom="0.12" radius-top="0" height="0.42" position="0 0.16 0" material="color: #f8fafc"></a-cone>
@@ -79,7 +79,7 @@
 </a-entity><a-text value="PRIMERA PISTA" align="center" color="#ffffff" width="2.2" position="0 0.9 0" rotation="-90 0 0"></a-text>
 </a-marker>
 
-<a-marker id="marker-2" type="pattern" url="./markers/marker-2.patt" emitevents="true" smooth="true" smooth-count="10" smooth-tolerance="0.01" smooth-threshold="5">
+<a-marker id="marker-2" type="pattern" emitevents="true" smooth="true" smooth-count="10" smooth-tolerance="0.01" smooth-threshold="5">
 <a-entity position="0 0.35 0" rotation="0 0 -20" animation="property: rotation; to: 0 360 340; dur: 5000; loop: true; easing: linear">
 <a-torus radius="0.22" radius-tubular="0.055" rotation="90 0 0" material="color: #fbbf24; metalness: 0.75; roughness: 0.25"></a-torus>
 <a-box width="0.12" height="0.65" depth="0.12" position="0 -0.39 0" material="color: #fbbf24; metalness: 0.75; roughness: 0.25"></a-box>
@@ -88,7 +88,7 @@
 </a-entity><a-text value="LA LLAVE" align="center" color="#fde68a" width="2.2" position="0 1.0 0" rotation="-90 0 0"></a-text>
 </a-marker>
 
-<a-marker id="marker-3" type="pattern" url="./markers/marker-3.patt" emitevents="true" smooth="true" smooth-count="10" smooth-tolerance="0.01" smooth-threshold="5">
+<a-marker id="marker-3" type="pattern" emitevents="true" smooth="true" smooth-count="10" smooth-tolerance="0.01" smooth-threshold="5">
 <a-entity position="0 0.18 0" animation="property: scale; from: 0.9 0.9 0.9; to: 1.05 1.05 1.05; dur: 900; dir: alternate; loop: true; easing: easeInOutSine">
 <a-box width="0.85" height="0.42" depth="0.62" position="0 0.20 0" material="color: #7c2d12; metalness: 0.15; roughness: 0.7"></a-box>
 <a-box width="0.86" height="0.22" depth="0.64" position="0 0.53 -0.05" rotation="-18 0 0" material="color: #92400e; metalness: 0.2; roughness: 0.65"></a-box>
