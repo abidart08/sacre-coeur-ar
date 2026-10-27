@@ -36,4 +36,4 @@ jobs:
           exit 1
 
       - name: Run browser verification
-        run: npx playwright test --project=chromium
+        run: npx playwright test
