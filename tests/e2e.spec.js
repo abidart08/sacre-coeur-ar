@@ -12,20 +12,22 @@ test('complete treasure hunt, persistence, AR bootstrap and printable markers', 
 
   await page.goto('/?debug=1', { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => window.AFRAME && window.SacreMarkers, null, { timeout: 30000 });
-  await page.waitForFunction(() => document.querySelector('a-scene')?.components?.arjs, null, { timeout: 30000 });
+  await page.waitForFunction(() => AFRAME.primitives?.primitives?.['a-marker'] && document.getElementById('marker-1')?.object3D, null, { timeout: 30000 });
 
   const bootstrap = await page.evaluate(() => ({
     aframe: window.AFRAME && AFRAME.version,
     markers: [1,2,3].map(i => document.getElementById('marker-' + i)?.getAttribute('url')),
     hasScene: Boolean(document.querySelector('a-scene')),
     hasArjs: Boolean(document.querySelector('a-scene')?.getAttribute('arjs')),
-    hasArjsComponent: Boolean(document.querySelector('a-scene')?.components?.arjs)
+    hasMarkerPrimitive: Boolean(AFRAME.primitives?.primitives?.['a-marker']),
+    initializedMarkers: [1,2,3].every(i => Boolean(document.getElementById('marker-' + i)?.object3D))
   }));
 
   expect(bootstrap.aframe).toBeTruthy();
   expect(bootstrap.hasScene).toBe(true);
   expect(bootstrap.hasArjs).toBe(true);
-  expect(bootstrap.hasArjsComponent).toBe(true);
+  expect(bootstrap.hasMarkerPrimitive).toBe(true);
+  expect(bootstrap.initializedMarkers).toBe(true);
   for (const url of bootstrap.markers) expect(url).toMatch(/^blob:/);
 
   await expect(page.locator('#welcome')).toHaveClass(/visible/);
