@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="Búsqueda del Tesoro AR en el Edificio Sacré Coeur de la UCU, creada con AR.js y A-Frame." />
+  <title>El Secreto del Sacré Coeur · Búsqueda AR</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.8/aframe/build/aframe-ar.js"></script>
+  <script defer src="./game.js"></script>
+</head>
+<body>
+<div id="app-ui" aria-live="polite">
+<header class="hud glass">
+  <div class="brand"><span class="brand-mark">✦</span><div><strong>El Secreto del Sacré Coeur</strong><small>Búsqueda del tesoro · AR</small></div></div>
+  <div class="stats"><span id="progress-text">0 / 3</span><span id="timer">00:00</span></div>
+</header>
+<div class="progress"><span class="step" id="step-1"></span><span class="step" id="step-2"></span><span class="step" id="step-3"></span></div>
+<div id="scan-status" class="scan-status glass">Apuntá la cámara al primer marcador.</div>
+<button id="help-button" class="icon-button glass" type="button">?</button>
+<button id="reset-button" class="reset-button glass" type="button">Reiniciar</button>
+
+<section id="welcome" class="modal visible">
+<div class="modal-card">
+<span class="eyebrow">MISIÓN AR</span>
+<h1>El Secreto del Sacré Coeur</h1>
+<p>Más de un siglo de historias se esconde entre los muros del edificio. Tres símbolos protegen un tesoro virtual. Encontralos en orden y revelá el secreto final.</p>
+<div class="instructions"><span>① Permití el uso de la cámara.</span><span>② Buscá y escaneá los marcadores físicos.</span><span>③ Mantenelos completos dentro de la imagen unos segundos.</span></div>
+<button id="start-button" class="primary-button" type="button">Comenzar búsqueda</button>
+<small class="privacy-note">La cámara se procesa en tu dispositivo; esta página no sube fotos ni video.</small>
+</div>
+</section>
+
+<section id="message-modal" class="modal">
+<div class="modal-card compact">
+<span id="message-kicker" class="eyebrow">PISTA ENCONTRADA</span>
+<div id="message-icon" class="big-icon">🧭</div>
+<h2 id="message-title">Pista desbloqueada</h2>
+<p id="message-body"></p>
+<button id="continue-button" class="primary-button" type="button">Continuar</button>
+</div>
+</section>
+
+<section id="final-modal" class="modal">
+<div class="modal-card treasure-card">
+<span class="eyebrow">TESORO ENCONTRADO</span>
+<div class="treasure-emblem">✦</div>
+<h2>El corazón del Sacré Coeur</h2>
+<p>Completaste el recorrido. El verdadero tesoro es la historia compartida del edificio: arte, encuentro y conocimiento atravesando generaciones.</p>
+<div class="completion-box"><span>Tiempo final</span><strong id="final-time">00:00</strong></div>
+<p class="completion-code">Código de finalización: <strong>SACRE-AR-2026</strong></p>
+<button id="close-final-button" class="primary-button" type="button">Volver a la cámara</button>
+</div>
+</section>
+
+<section id="help-modal" class="modal">
+<div class="modal-card compact">
+<span class="eyebrow">AYUDA</span>
+<h2>¿No detecta el marcador?</h2>
+<p>Probá con buena luz, evitá reflejos, mantené todo el cuadrado negro visible y alejando/acercando el celular lentamente.</p>
+<p>Si recargás la página, tu progreso se conserva en este dispositivo.</p>
+<button id="close-help-button" class="secondary-button" type="button">Cerrar</button>
+</div>
+</section>
+
+<div id="debug-panel" class="debug-panel glass" hidden><strong>Modo prueba</strong><button data-debug-step="1">Simular 1</button><button data-debug-step="2">Simular 2</button><button data-debug-step="3">Simular 3</button></div>
+<div id="confetti"></div>
+</div>
+
+<a-scene embedded vr-mode-ui="enabled: false" renderer="antialias: true; alpha: true;" arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono; patternRatio: 0.5; maxDetectionRate: 30;">
+<a-marker id="marker-1" type="pattern" url="./markers/marker-1.patt" emitevents="true" smooth="true" smooth-count="10" smooth-tolerance="0.01" smooth-threshold="5">
+<a-entity position="0 0.08 0" rotation="-90 0 0">
+<a-torus radius="0.43" radius-tubular="0.035" material="color: #38bdf8; metalness: 0.3; roughness: 0.35" animation="property: rotation; to: 0 0 360; dur: 7000; loop: true; easing: linear"></a-torus>
+<a-cone radius-bottom="0.12" radius-top="0" height="0.42" position="0 0.16 0" material="color: #f8fafc"></a-cone>
+<a-cone radius-bottom="0.09" radius-top="0" height="0.30" position="0 -0.12 0" rotation="0 0 180" material="color: #ef4444"></a-cone>
+<a-ring radius-inner="0.07" radius-outer="0.11" material="color: #f8fafc"></a-ring>
+</a-entity><a-text value="PRIMERA PISTA" align="center" color="#ffffff" width="2.2" position="0 0.9 0" rotation="-90 0 0"></a-text>
+</a-marker>
+
+<a-marker id="marker-2" type="pattern" url="./markers/marker-2.patt" emitevents="true" smooth="true" smooth-count="10" smooth-tolerance="0.01" smooth-threshold="5">
+<a-entity position="0 0.35 0" rotation="0 0 -20" animation="property: rotation; to: 0 360 340; dur: 5000; loop: true; easing: linear">
+<a-torus radius="0.22" radius-tubular="0.055" rotation="90 0 0" material="color: #fbbf24; metalness: 0.75; roughness: 0.25"></a-torus>
+<a-box width="0.12" height="0.65" depth="0.12" position="0 -0.39 0" material="color: #fbbf24; metalness: 0.75; roughness: 0.25"></a-box>
+<a-box width="0.28" height="0.12" depth="0.12" position="0.08 -0.68 0" material="color: #fbbf24; metalness: 0.75; roughness: 0.25"></a-box>
+<a-box width="0.20" height="0.12" depth="0.12" position="-0.04 -0.56 0" material="color: #fbbf24; metalness: 0.75; roughness: 0.25"></a-box>
+</a-entity><a-text value="LA LLAVE" align="center" color="#fde68a" width="2.2" position="0 1.0 0" rotation="-90 0 0"></a-text>
+</a-marker>
+
+<a-marker id="marker-3" type="pattern" url="./markers/marker-3.patt" emitevents="true" smooth="true" smooth-count="10" smooth-tolerance="0.01" smooth-threshold="5">
+<a-entity position="0 0.18 0" animation="property: scale; from: 0.9 0.9 0.9; to: 1.05 1.05 1.05; dur: 900; dir: alternate; loop: true; easing: easeInOutSine">
+<a-box width="0.85" height="0.42" depth="0.62" position="0 0.20 0" material="color: #7c2d12; metalness: 0.15; roughness: 0.7"></a-box>
+<a-box width="0.86" height="0.22" depth="0.64" position="0 0.53 -0.05" rotation="-18 0 0" material="color: #92400e; metalness: 0.2; roughness: 0.65"></a-box>
+<a-box width="0.14" height="0.30" depth="0.66" position="0 0.26 0" material="color: #fbbf24; metalness: 0.75; roughness: 0.25"></a-box>
+<a-sphere radius="0.12" position="-0.20 0.62 0" material="color: #fde047; metalness: 0.8; roughness: 0.2"></a-sphere>
+<a-sphere radius="0.10" position="0.05 0.69 0.03" material="color: #facc15; metalness: 0.8; roughness: 0.2"></a-sphere>
+<a-sphere radius="0.09" position="0.25 0.60 -0.02" material="color: #fef08a; metalness: 0.8; roughness: 0.2"></a-sphere>
+</a-entity><a-text value="TESORO" align="center" color="#fde68a" width="2.5" position="0 1.15 0" rotation="-90 0 0"></a-text>
+</a-marker>
+
+<a-entity light="type: ambient; intensity: 1.0"></a-entity>
+<a-entity light="type: directional; intensity: 0.8" position="1 2 1"></a-entity>
+<a-entity camera></a-entity>
+</a-scene>
+</body></html>
