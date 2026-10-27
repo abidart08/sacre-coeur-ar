@@ -30,22 +30,22 @@ test('complete treasure hunt, persistence, AR bootstrap and printable markers', 
   await expect(page.locator('#welcome')).not.toHaveClass(/visible/);
 
   // Out-of-order markers must remain locked.
-  await page.click('[data-debug-step="2"]');
+  await page.evaluate(() => document.getElementById('marker-2').dispatchEvent(new Event('markerFound')));
   await expect(page.locator('#progress-text')).toHaveText('0 / 3');
   await expect(page.locator('#scan-status')).toContainText('marcador 1');
 
   // Correct sequence.
-  await page.click('[data-debug-step="1"]');
+  await page.evaluate(() => document.getElementById('marker-1').dispatchEvent(new Event('markerFound')));
   await expect(page.locator('#progress-text')).toHaveText('1 / 3');
   await expect(page.locator('#message-title')).toContainText('brújula');
   await page.click('#continue-button');
 
-  await page.click('[data-debug-step="2"]');
+  await page.evaluate(() => document.getElementById('marker-2').dispatchEvent(new Event('markerFound')));
   await expect(page.locator('#progress-text')).toHaveText('2 / 3');
   await expect(page.locator('#message-title')).toContainText('llave');
   await page.click('#continue-button');
 
-  await page.click('[data-debug-step="3"]');
+  await page.evaluate(() => document.getElementById('marker-3').dispatchEvent(new Event('markerFound')));
   await expect(page.locator('#progress-text')).toHaveText('3 / 3');
   await page.click('#continue-button');
   await expect(page.locator('#final-modal')).toHaveClass(/visible/);
